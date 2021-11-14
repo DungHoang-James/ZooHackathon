@@ -12,7 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZooHackathonAPI.DatabaseContext;
+using ZooHackathonAPI.Repository.ReportRepo;
 using ZooHackathonAPI.Repository.UserRepo;
+using ZooHackathonAPI.Services.ReportServices;
 using ZooHackathonAPI.Services.UserServices;
 
 namespace ZooHackathonAPI
@@ -31,11 +33,16 @@ namespace ZooHackathonAPI
         {
             services.AddDbContext<ZooDBContext>(option => option.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
 
+            // add automapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             // add repository
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IReportRepository, ReportRepository>();
 
             // add service
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IReportService, ReportService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

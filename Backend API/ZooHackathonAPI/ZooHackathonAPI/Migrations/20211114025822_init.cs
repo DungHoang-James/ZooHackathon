@@ -17,7 +17,8 @@ namespace ZooHackathonAPI.Migrations
                     Password = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     Fullname = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Role = table.Column<int>(type: "int", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsHideInfo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

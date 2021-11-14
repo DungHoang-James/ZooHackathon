@@ -89,6 +89,9 @@ namespace ZooHackathonAPI.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("IsHideInfo")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Password")
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");

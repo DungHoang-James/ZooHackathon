@@ -10,7 +10,7 @@ using ZooHackathonAPI.DatabaseContext;
 namespace ZooHackathonAPI.Migrations
 {
     [DbContext(typeof(ZooDBContext))]
-    [Migration("20211114000245_init")]
+    [Migration("20211114025822_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,6 +90,9 @@ namespace ZooHackathonAPI.Migrations
                     b.Property<string>("Fullname")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsHideInfo")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Password")
                         .HasMaxLength(30)
