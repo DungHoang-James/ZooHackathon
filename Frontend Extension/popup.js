@@ -79,6 +79,9 @@ btnLoginSubmit.addEventListener('click', async (e) => {
 btnReport.addEventListener('click', async () => {
 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
+	const deviceId = await chrome.storage.sync.get('deviceId');
+	console.log(deviceId);
+	
 	chrome.scripting.executeScript({
 		target: { tabId: tab.id },
 		function: onReport,
@@ -89,8 +92,9 @@ checkboxAuto.addEventListener('change', async (event) => {
 	await chrome.storage.sync.set({ autoCheck: event.currentTarget.checked });
 });
 
-function onReport() {
-	console.log(document.body);
+async function onReport() {
+	
+
 	// đi qua từng tag trên trình duyệt
 
 	// TODO: gọi api POST report
