@@ -1,0 +1,32 @@
+@import '~antd/dist/antd.css';
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.app-logo {
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.app-logo {
+		animation: app-logo-spin infinite 20s linear;
+	}
+}
+
+@keyframes app-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.google-login button {
+	width: 100% !important;
+}
