@@ -12,6 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZooHackathonAPI.DatabaseContext;
+using ZooHackathonAPI.Extensions;
+using ZooHackathonAPI.Handler;
+using ZooHackathonAPI.Repository.BaseRepo;
 using ZooHackathonAPI.Repository.ReportImageRepo;
 using ZooHackathonAPI.Repository.ReportRepo;
 using ZooHackathonAPI.Repository.ReportTextRepo;
@@ -19,6 +22,7 @@ using ZooHackathonAPI.Repository.UserRepo;
 using ZooHackathonAPI.Services.ReportServices;
 using ZooHackathonAPI.Services.StatisticsServices;
 using ZooHackathonAPI.Services.UserServices;
+using ZooHackathonAPI.UnitOfWorks;
 
 namespace ZooHackathonAPI
 {
@@ -35,6 +39,15 @@ namespace ZooHackathonAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ZooDBContext>(option => option.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+            services.AddScoped<DbContext, ZooDBContext>();
+            services.AddScoped<ZooDBContext>();
+
+            services.AddHttpClient();
+
+            services.AddRouting();
+
+            // add unit of work
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // add automapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -55,6 +68,8 @@ namespace ZooHackathonAPI
             {
                 c.SwaggerDoc("ZooHackathon", new OpenApiInfo { Title = "ZooHackathon API", Version = "v1" });
             });
+            services.AddCors();
+            services.ConfigureFilter<ErrorHandlingFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +85,8 @@ namespace ZooHackathonAPI
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
