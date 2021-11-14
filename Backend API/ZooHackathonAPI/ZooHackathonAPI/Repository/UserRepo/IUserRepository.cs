@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ZooHackathonAPI.Entities;
+using ZooHackathonAPI.Models.User;
+using ZooHackathonAPI.Repository.BaseRepo;
 
 namespace ZooHackathonAPI.Repository.UserRepo
 {
-    public interface IUserRepository
+    public interface IUserRepository : IBaseRepository<User>
     {
     }
 }
