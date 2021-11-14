@@ -55,7 +55,7 @@ namespace ZooHackathonAPI.Services.BaseServices
         public async Task CreateAsync(TEntity entity)
         {
             await repository.CreateAsync(entity);
-            await SaveAsync();
+            repository.Save();
         }
 
         public void Delete(TEntity entity)
@@ -108,7 +108,7 @@ namespace ZooHackathonAPI.Services.BaseServices
         public async Task UpdateAsync(TEntity entity)
         {
             repository.Update(entity);
-            await SaveAsync();
+            await repository.SaveAsync();
         }
     }
 }

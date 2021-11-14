@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 using ZooHackathonAPI.Entities;
 using ZooHackathonAPI.Models.User;
 using ZooHackathonAPI.Repository.UserRepo;
+using ZooHackathonAPI.Requests;
 using ZooHackathonAPI.Responses;
 using ZooHackathonAPI.Services.BaseServices;
 using ZooHackathonAPI.Services.ReportServices;
 using ZooHackathonAPI.UnitOfWorks;
 using ZooHackathonAPI.Utilities;
+using ZooHackathonAPI.ViewModels;
 
 namespace ZooHackathonAPI.Services.UserServices
 {
@@ -35,7 +37,7 @@ namespace ZooHackathonAPI.Services.UserServices
             _reportService = reportService;
         }
 
-        public async Task<LoginResponse> Login(string email, string password)
+        public async Task<UserResponse> Login(string email, string password)
         {
             var user = await Get()
                 .Where(tempUser => tempUser.Email.Equals(email) && tempUser.Password.Equals(password))
@@ -48,7 +50,7 @@ namespace ZooHackathonAPI.Services.UserServices
 
                 string token = TokenUtil.GenerateJWTToken(user, _configuration);
 
-                var response = new LoginResponse
+                var response = new UserResponse
                 {
                     Token = token,
                     Email = user.Email,
@@ -63,7 +65,7 @@ namespace ZooHackathonAPI.Services.UserServices
             throw new ErrorResponse((int)HttpStatusCode.Forbidden, "Wrong email or password.");
         }
 
-        public async Task<LoginResponse> Register(string email, string password, int role, bool isHideInfo)
+        public async Task<UserResponse> Register(string email, string password, int role, bool isHideInfo)
         {
             var existUser = await Get()
                 .Where(tempUser => tempUser.Email.Equals(email))
@@ -90,7 +92,7 @@ namespace ZooHackathonAPI.Services.UserServices
 
             var token = TokenUtil.GenerateJWTToken(user, _configuration);
 
-            var response = new LoginResponse
+            var response = new UserResponse
             {
                 Token = token,
                 Email = targetUser.Email,
@@ -100,6 +102,15 @@ namespace ZooHackathonAPI.Services.UserServices
             };
 
             return await Task.Run(() => response);
+        }
+
+        public async Task<User> UpdateUser(UpdateUserRequest request)
+        {
+            User targetUser = _mapper.CreateMapper().Map<User>(request);
+
+            await UpdateAsync(targetUser);
+
+            return await Task.Run(() => targetUser);
         }
     }
 }
