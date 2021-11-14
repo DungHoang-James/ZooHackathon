@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooHackathonAPI", "ZooHackathonAPI\ZooHackathonAPI.csproj", "{BB5170AE-F978-426F-A055-7362AD197418}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB5170AE-F978-426F-A055-7362AD197418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB5170AE-F978-426F-A055-7362AD197418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB5170AE-F978-426F-A055-7362AD197418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB5170AE-F978-426F-A055-7362AD197418}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {00D4F16A-45E3-4B61-989E-03EC8C741479}
+	EndGlobalSection
+EndGlobal
