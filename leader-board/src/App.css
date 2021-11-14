@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.App {
+	text-align: center;
+	background-image: url('http://www.zoohackathon.com/media/1145/zoohackathon-graphic-20191011.jpg');
+	height: 100vh;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-family: 'Roboto', sans-serif;
+}
