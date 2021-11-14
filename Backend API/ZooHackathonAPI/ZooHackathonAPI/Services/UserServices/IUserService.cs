@@ -8,7 +8,7 @@ namespace ZooHackathonAPI.Services.UserServices
 {
     public interface IUserService
     {
-        Task<LoginResponse> Register(string email, string password, string fullName, int role, bool isHideInfo);
+        Task<LoginResponse> Register(string email, string password, int role, bool isHideInfo);
         Task<LoginResponse> Login(string email, string password);
     }
 }

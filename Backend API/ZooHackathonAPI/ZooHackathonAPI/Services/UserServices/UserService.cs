@@ -63,7 +63,7 @@ namespace ZooHackathonAPI.Services.UserServices
             throw new ErrorResponse((int)HttpStatusCode.Forbidden, "Wrong email or password.");
         }
 
-        public async Task<LoginResponse> Register(string email, string password, string fullName, int role, bool isHideInfo)
+        public async Task<LoginResponse> Register(string email, string password, int role, bool isHideInfo)
         {
             var existUser = await Get()
                 .Where(tempUser => tempUser.Email.Equals(email))
@@ -71,6 +71,8 @@ namespace ZooHackathonAPI.Services.UserServices
 
             if (existUser != null)
                 throw new ErrorResponse((int)HttpStatusCode.Forbidden, "This email existed.");
+
+            string fullName = email.Split('@')[0];
 
             var user = new UserDTO
             {

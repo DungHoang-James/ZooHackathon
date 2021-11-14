@@ -19,9 +19,9 @@ namespace ZooHackathonAPI.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(string email, string password, string fullName, int role, bool isHideInfo)
+        public async Task<IActionResult> Register(string email, string password, int role, bool isHideInfo)
         {
-            var response = await _userService.Register(email, password, fullName, role, isHideInfo);
+            var response = await _userService.Register(email, password, role, isHideInfo);
 
             return await Task.Run(() => Ok(response));
         }
