@@ -34,12 +34,12 @@ export default function AuthPage() {
 				backgroundPosition: 'center center',
 				display: 'flex',
 				alignItems: 'center',
-			}}
+			}}	
 		>
 			<div style={{ padding: '20 10', marginLeft: 200, textAlign: 'center' }}>
 				<img alt='logo' src='/logo150.png' className='app-logo' style={{ marginBottom: 20 }} />
 				<Typography.Title level={3} style={{ marginBottom: 50 }}>
-					Animal Protect
+					Animal Protect For Admin
 				</Typography.Title>
 
 				<Form
@@ -52,11 +52,11 @@ export default function AuthPage() {
 					autoComplete='off'
 				>
 					<Form.Item label='Email' name='email'>
-						<Input />
+						<Input size='large' />
 					</Form.Item>
 
 					<Form.Item label='Password' name='password'>
-						<Input.Password />
+						<Input.Password size='large' />
 					</Form.Item>
 
 					<Form.Item wrapperCol={{ offset: 4, span: 10 }}>
