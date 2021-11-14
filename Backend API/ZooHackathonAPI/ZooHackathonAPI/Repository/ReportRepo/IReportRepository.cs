@@ -12,5 +12,7 @@ namespace ZooHackathonAPI.Repository.ReportRepo
         List<Report> GetReports();
         Report GetReport(int id);
         int CreateReport(Report report);
+        int GetTotalReport();
+        int GetTotalDevice();
     }
 }

@@ -7,7 +7,10 @@ namespace ZooHackathonAPI.Models.Statistics
 {
     public class UserReportDTO
     {
-        public int UserID { get; set; }
+        public int TotalUser { get; set; }
         public int TotalReport { get; set; }
+        public int TotalDevice { get; set; }
+        public double AveragePercentCorrect { get; set; }
+        public List<AmountImagePercentCorrect> ImagePercentCorrects { get; set; }
     }
 }

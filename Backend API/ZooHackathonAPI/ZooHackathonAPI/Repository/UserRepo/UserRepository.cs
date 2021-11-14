@@ -20,9 +20,9 @@ namespace ZooHackathonAPI.Repository.UserRepo
             this._dBContext = dBContext;
         }
 
-        public List<UserReportDTO> GetStatisticUserReport()
+        public int GetTotalUser()
         {
-            return _dBContext.Users.Include(u => u.Reports).Select(u => new UserReportDTO() { UserID = u.ID, TotalReport = u.Reports.Count }).ToList();
+            return _dBContext.Users.Count();
         }
     }
 }
