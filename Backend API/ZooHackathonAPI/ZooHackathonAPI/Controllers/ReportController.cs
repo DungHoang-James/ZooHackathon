@@ -39,5 +39,13 @@ namespace ZooHackathonAPI.Controllers
             var result = _reportService.CreateReport(reportPayload);
             return result > 0 ? CreatedAtRoute("GetReportById", result) : BadRequest(new { Message = "Create report fail" });
         }
+
+        [HttpGet("detectImage")]
+        public async Task<IActionResult> DetectImage(string imagePath)
+        {
+            var result = await _reportService.DetectImage(imagePath);
+
+            return await Task.Run(() => Ok(result));
+        }
     }
 }

@@ -8,6 +8,7 @@ using ZooHackathonAPI.Models.Report;
 using ZooHackathonAPI.Repository.ReportImageRepo;
 using ZooHackathonAPI.Repository.ReportRepo;
 using ZooHackathonAPI.Repository.ReportTextRepo;
+using ZooHackathonAPI.Utilities.ImageDetect;
 
 namespace ZooHackathonAPI.Services.ReportServices
 {
@@ -99,6 +100,13 @@ namespace ZooHackathonAPI.Services.ReportServices
             }
 
             return 0;
+        }
+
+        public async Task<List<ObjectDetect>> DetectImage(string imagePath)
+        {
+            var result = ImageDetectUtil.DetectImage(imagePath);
+
+            return await Task.Run(() => result);
         }
     }
 }
