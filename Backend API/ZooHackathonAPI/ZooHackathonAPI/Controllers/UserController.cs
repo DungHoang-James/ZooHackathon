@@ -42,5 +42,13 @@ namespace ZooHackathonAPI.Controllers
 
             return await Task.Run(() => Ok(response));
         }
+
+        [HttpGet("token")]
+        public async Task<IActionResult> GetUserByToken(string token)
+        {
+            var response = await _userService.GetUserByToken(token);
+
+            return await Task.Run(() => Ok(response));
+        }
     }
 }

@@ -23,7 +23,8 @@ namespace ZooHackathonAPI.Services.UserServices
     public class UserService : BaseService<User>, IUserService
     {
         private readonly IConfiguration _configuration;
-        private readonly AutoMapper.IConfigurationProvider _mapper;
+        private readonly AutoMapper.IConfigurationProvider _mapperProvider;
+        private readonly IMapper _mapper;
 
         private readonly IReportService _reportService;
 
@@ -32,7 +33,8 @@ namespace ZooHackathonAPI.Services.UserServices
             IReportService reportService) : base(unitOfWork, repository)
         {
             _configuration = configuration;
-            _mapper = mapper.ConfigurationProvider;
+            _mapperProvider = mapper.ConfigurationProvider;
+            _mapper = mapper;
 
             _reportService = reportService;
         }
@@ -41,7 +43,7 @@ namespace ZooHackathonAPI.Services.UserServices
         {
             var user = await Get()
                 .Where(tempUser => tempUser.Email.Equals(email) && tempUser.Password.Equals(password))
-                .ProjectTo<UserDTO>(_mapper)
+                .ProjectTo<UserDTO>(_mapperProvider)
                 .FirstOrDefaultAsync();
 
             if (user != null)
@@ -86,7 +88,7 @@ namespace ZooHackathonAPI.Services.UserServices
                 CreateDate = DateTime.Now
             };
 
-            var targetUser = _mapper.CreateMapper().Map<User>(user);
+            var targetUser = _mapperProvider.CreateMapper().Map<User>(user);
 
             await CreateAsync(targetUser);
 
@@ -106,11 +108,35 @@ namespace ZooHackathonAPI.Services.UserServices
 
         public async Task<User> UpdateUser(UpdateUserRequest request)
         {
-            User targetUser = _mapper.CreateMapper().Map<User>(request);
+            var user = await GetAsync(request.Id);
 
-            await UpdateAsync(targetUser);
+            _mapper.Map(request, user);
 
-            return await Task.Run(() => targetUser);
+            await UpdateAsync(user);
+
+            return await Task.Run(() => user);
+        }
+
+        public async Task<UserResponse> GetUserByToken(string token)
+        {
+            TokenViewModel tokenModel = TokenUtil.ReadJWTTokenToModel(token, _configuration);
+
+            int userId = tokenModel.Id;
+
+            var user = await GetAsync(userId);
+
+            var userReports = _reportService.GetReportsByUserId(userId);
+
+            UserResponse response = new UserResponse
+            {
+                Email = user.Email, 
+                FullName = user.Fullname, 
+                IsHideInfo = user.IsHideInfo, 
+                Token = token, 
+                ReportCount = userReports != null ? userReports.Count : 0
+            };
+
+            return await Task.Run(() => response);
         }
     }
 }
