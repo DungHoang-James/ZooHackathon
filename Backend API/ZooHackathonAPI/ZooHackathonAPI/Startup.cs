@@ -63,6 +63,11 @@ namespace ZooHackathonAPI
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IStatisticService, StatisticService>();
 
+            services.AddCors(options => options.AddDefaultPolicy(builder =>
+                                                     builder.AllowAnyOrigin()
+                                                            .AllowAnyMethod()
+                                                            .AllowAnyHeader()));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -83,6 +88,8 @@ namespace ZooHackathonAPI
             }
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

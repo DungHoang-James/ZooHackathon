@@ -25,7 +25,7 @@ namespace ZooHackathonAPI.Repository.ReportRepo
 
         public List<Report> GetReports()
         {
-            return _dBContext.Reports.ToList();
+            return _dBContext.Reports.Include(r => r.ReportImages).Include(r => r.ReportTexts).ToList();
         }
 
         public Report GetReport(int id)
@@ -38,6 +38,16 @@ namespace ZooHackathonAPI.Repository.ReportRepo
             _dBContext.Reports.Add(report);
             var result = _dBContext.SaveChanges();
             return result;
+        }
+
+        public int GetTotalReport()
+        {
+            return _dBContext.Reports.Count();
+        }
+
+        public int GetTotalDevice()
+        {
+            return _dBContext.Reports.Select(r => r.DeviceID).Distinct().Count();
         }
     }
 }

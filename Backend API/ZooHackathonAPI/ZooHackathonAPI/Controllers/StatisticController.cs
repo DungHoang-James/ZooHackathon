@@ -19,7 +19,7 @@ namespace ZooHackathonAPI.Controllers
             this._statisticService = statisticService;
         }
 
-        [HttpGet("reports")]
+        [HttpGet]
         public ActionResult<List<UserReportDTO>> GetUserReportStatistic()
         {
             var result = _statisticService.GetStatisticUserReport();

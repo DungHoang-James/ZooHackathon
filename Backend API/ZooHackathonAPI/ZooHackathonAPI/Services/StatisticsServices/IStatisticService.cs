@@ -8,6 +8,6 @@ namespace ZooHackathonAPI.Services.StatisticsServices
 {
     public interface IStatisticService
     {
-        List<UserReportDTO> GetStatisticUserReport();
+        UserReportDTO GetStatisticUserReport();
     }
 }

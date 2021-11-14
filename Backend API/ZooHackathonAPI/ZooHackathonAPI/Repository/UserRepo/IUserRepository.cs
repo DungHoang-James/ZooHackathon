@@ -11,6 +11,6 @@ namespace ZooHackathonAPI.Repository.UserRepo
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        List<UserReportDTO> GetStatisticUserReport();
+        int GetTotalUser();
     }
 }
