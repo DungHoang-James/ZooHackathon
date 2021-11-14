@@ -19,6 +19,8 @@ namespace ZooHackathonAPI.Repository.BaseRepo
         Task CreateAsync(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
+        void Save();
+        Task SaveAsync();
     }
 
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
@@ -76,6 +78,16 @@ namespace ZooHackathonAPI.Repository.BaseRepo
         public async Task<TEntity> GetAsync<TKey>(TKey id)
         {
             return await this.dbSet.FindAsync(new object[1] { id });
+        }
+
+        public void Save()
+        {
+            dbContext.SaveChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+            await dbContext.SaveChangesAsync();
         }
 
         public void Update(TEntity entity)

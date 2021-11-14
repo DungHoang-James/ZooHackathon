@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZooHackathonAPI.Entities;
 using ZooHackathonAPI.Models.User;
+using ZooHackathonAPI.Requests;
 
 namespace ZooHackathonAPI.Profiles
 {
@@ -14,6 +15,9 @@ namespace ZooHackathonAPI.Profiles
         {
             CreateMap<User, UserDTO>();
             CreateMap<UserDTO, User>();
+
+            CreateMap<User, UpdateUserRequest>();
+            CreateMap<UpdateUserRequest, User>();
         }
     }
 }

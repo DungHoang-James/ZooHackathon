@@ -7,13 +7,13 @@ namespace ZooHackathonAPI.ViewModels
 {
     public class TokenViewModel
     {
-        public TokenViewModel(Guid id, int role)
+        public TokenViewModel(int id, int role)
         {
             Id = id;
             Role = role;
         }
 
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public int Role { get; set; }
     }
 }

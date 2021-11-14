@@ -67,7 +67,7 @@ namespace ZooHackathonAPI.Utilities
 
             var result = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
-            Guid id = Guid.Parse(result.Claims.First(claim => claim.Type == PayloadKeyConstant.ID).Value);
+            int id = int.Parse(result.Claims.First(claim => claim.Type == PayloadKeyConstant.ID).Value);
             int role = int.Parse(result.Claims.First(claim => claim.Type == PayloadKeyConstant.ROLE).Value);
 
             return new TokenViewModel(id, role);
