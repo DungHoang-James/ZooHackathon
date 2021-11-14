@@ -54,6 +54,7 @@ namespace ZooHackathonAPI.Services.UserServices
 
                 var response = new UserResponse
                 {
+                    ID = user.Id, 
                     Token = token,
                     Email = user.Email,
                     FullName = user.FullName,
@@ -96,6 +97,7 @@ namespace ZooHackathonAPI.Services.UserServices
 
             var response = new UserResponse
             {
+                ID = targetUser.ID, 
                 Token = token,
                 Email = targetUser.Email,
                 FullName = targetUser.Fullname, 
@@ -129,6 +131,7 @@ namespace ZooHackathonAPI.Services.UserServices
 
             UserResponse response = new UserResponse
             {
+                ID = userId, 
                 Email = user.Email, 
                 FullName = user.Fullname, 
                 IsHideInfo = user.IsHideInfo, 
@@ -151,6 +154,7 @@ namespace ZooHackathonAPI.Services.UserServices
 
                 UserResponse response = new UserResponse
                 {
+                    ID = temp.ID, 
                     Email = temp.Email,
                     FullName = temp.Fullname,
                     IsHideInfo = temp.IsHideInfo, 
