@@ -10,7 +10,7 @@ using ZooHackathonAPI.DatabaseContext;
 namespace ZooHackathonAPI.Migrations
 {
     [DbContext(typeof(ZooDBContext))]
-    [Migration("20211114025822_init")]
+    [Migration("20211114054337_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,8 +46,10 @@ namespace ZooHackathonAPI.Migrations
 
             modelBuilder.Entity("ZooHackathonAPI.Entities.ReportImage", b =>
                 {
-                    b.Property<int>("ReportID")
-                        .HasColumnType("int");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ImageURL")
                         .HasColumnType("nvarchar(max)");
@@ -55,20 +57,32 @@ namespace ZooHackathonAPI.Migrations
                     b.Property<double>("PercentCorrect")
                         .HasColumnType("float");
 
-                    b.HasKey("ReportID");
+                    b.Property<int>("ReportID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ReportID");
 
                     b.ToTable("ReportImages");
                 });
 
             modelBuilder.Entity("ZooHackathonAPI.Entities.ReportText", b =>
                 {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("ReportID")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ReportID");
+                    b.HasKey("ID");
+
+                    b.HasIndex("ReportID");
 
                     b.ToTable("ReportTexts");
                 });
@@ -109,7 +123,7 @@ namespace ZooHackathonAPI.Migrations
             modelBuilder.Entity("ZooHackathonAPI.Entities.Report", b =>
                 {
                     b.HasOne("ZooHackathonAPI.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Reports")
                         .HasForeignKey("UserID");
 
                     b.Navigation("User");
@@ -142,6 +156,11 @@ namespace ZooHackathonAPI.Migrations
                     b.Navigation("ReportImages");
 
                     b.Navigation("ReportTexts");
+                });
+
+            modelBuilder.Entity("ZooHackathonAPI.Entities.User", b =>
+                {
+                    b.Navigation("Reports");
                 });
 #pragma warning restore 612, 618
         }

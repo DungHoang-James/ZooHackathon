@@ -11,5 +11,6 @@ namespace ZooHackathonAPI.Services.ReportServices
         List<ReportDTO> GetReportsByUserId(int userId);
         List<ReportDTO> GetReports();
         ReportDTO GetReport(int id);
+        int CreateReport(ReportPayload reportPayload);
     }
 }

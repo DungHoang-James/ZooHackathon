@@ -11,5 +11,6 @@ namespace ZooHackathonAPI.Repository.ReportRepo
         List<Report> GetReportsByUserID(int userId);
         List<Report> GetReports();
         Report GetReport(int id);
+        int CreateReport(Report report);
     }
 }

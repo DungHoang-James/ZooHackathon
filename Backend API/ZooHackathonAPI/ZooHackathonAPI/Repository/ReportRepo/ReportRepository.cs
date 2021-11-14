@@ -32,5 +32,12 @@ namespace ZooHackathonAPI.Repository.ReportRepo
         {
             return _dBContext.Reports.Include(r => r.ReportImages).Include(r => r.ReportTexts).FirstOrDefault(r => r.ID == id);
         }
+
+        public int CreateReport(Report report)
+        {
+            _dBContext.Reports.Add(report);
+            var result = _dBContext.SaveChanges();
+            return result;
+        }
     }
 }

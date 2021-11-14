@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ZooHackathonAPI.Entities;
 using ZooHackathonAPI.Models.Statistics;
 
-namespace ZooHackathonAPI.Repository.UserRepo
+namespace ZooHackathonAPI.Services.StatisticsServices
 {
-    public interface IUserRepository
+    public interface IStatisticService
     {
         List<UserReportDTO> GetStatisticUserReport();
     }
