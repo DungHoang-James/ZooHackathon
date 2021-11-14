@@ -10,6 +10,7 @@ namespace ZooHackathonAPI.Entities
     public class ReportText
     {
         [Key]
+        public int ID { get; set; }
         public int ReportID { get; set; }
         public string Text { get; set; }
 
