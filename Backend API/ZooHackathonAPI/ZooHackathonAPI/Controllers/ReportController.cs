@@ -26,17 +26,18 @@ namespace ZooHackathonAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("id")]
+        [HttpGet("id", Name = "GetReportById")]
         public ActionResult<List<ReportDTO>> GetReportById(int id)
         {
             var result = _reportService.GetReport(id);
             return Ok(result);
         }
 
-        //[HttpPost]
-        //public IActionResult CreateReport()
-        //{
-
-        //}
+        [HttpPost]
+        public IActionResult CreateReport([FromBody] ReportPayload reportPayload)
+        {
+            var result = _reportService.CreateReport(reportPayload);
+            return result > 0 ? CreatedAtRoute("GetReportById", result) : BadRequest(new { Message = "Create report fail" });
+        }
     }
 }

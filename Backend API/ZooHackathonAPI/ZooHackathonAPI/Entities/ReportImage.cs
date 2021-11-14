@@ -10,6 +10,7 @@ namespace ZooHackathonAPI.Entities
     public class ReportImage
     {
         [Key]
+        public int ID { get; set; }
         public int ReportID { get; set; }
         public string ImageURL { get; set; }
         public double PercentCorrect { get; set; }

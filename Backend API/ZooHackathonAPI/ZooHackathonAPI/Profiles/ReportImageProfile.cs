@@ -13,6 +13,7 @@ namespace ZooHackathonAPI.Profiles
         public ReportImageProfile()
         {
             CreateMap<ReportImage, ReportImageDTO>();
+            CreateMap<ReportImageDTO, ReportImage>();
         }
     }
 }

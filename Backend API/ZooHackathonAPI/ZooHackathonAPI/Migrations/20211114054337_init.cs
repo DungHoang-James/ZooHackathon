@@ -50,13 +50,15 @@ namespace ZooHackathonAPI.Migrations
                 name: "ReportImages",
                 columns: table => new
                 {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ReportID = table.Column<int>(type: "int", nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PercentCorrect = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReportImages", x => x.ReportID);
+                    table.PrimaryKey("PK_ReportImages", x => x.ID);
                     table.ForeignKey(
                         name: "FK_ReportImages_Reports_ReportID",
                         column: x => x.ReportID,
@@ -69,12 +71,14 @@ namespace ZooHackathonAPI.Migrations
                 name: "ReportTexts",
                 columns: table => new
                 {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ReportID = table.Column<int>(type: "int", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReportTexts", x => x.ReportID);
+                    table.PrimaryKey("PK_ReportTexts", x => x.ID);
                     table.ForeignKey(
                         name: "FK_ReportTexts_Reports_ReportID",
                         column: x => x.ReportID,
@@ -84,9 +88,19 @@ namespace ZooHackathonAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ReportImages_ReportID",
+                table: "ReportImages",
+                column: "ReportID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reports_UserID",
                 table: "Reports",
                 column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReportTexts_ReportID",
+                table: "ReportTexts",
+                column: "ReportID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
