@@ -116,5 +116,27 @@ namespace ZooHackathonAPI.Services.UserServices
 
             return await Task.Run(() => user);
         }
+
+        public async Task<UserResponse> GetUserByToken(string token)
+        {
+            TokenViewModel tokenModel = TokenUtil.ReadJWTTokenToModel(token, _configuration);
+
+            int userId = tokenModel.Id;
+
+            var user = await GetAsync(userId);
+
+            var userReports = _reportService.GetReportsByUserId(userId);
+
+            UserResponse response = new UserResponse
+            {
+                Email = user.Email, 
+                FullName = user.Fullname, 
+                IsHideInfo = user.IsHideInfo, 
+                Token = token, 
+                ReportCount = userReports != null ? userReports.Count : 0
+            };
+
+            return await Task.Run(() => response);
+        }
     }
 }

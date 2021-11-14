@@ -13,5 +13,6 @@ namespace ZooHackathonAPI.Services.UserServices
         Task<UserResponse> Register(string email, string password, int role, bool isHideInfo);
         Task<UserResponse> Login(string email, string password);
         Task<User> UpdateUser(UpdateUserRequest request);
+        Task<UserResponse> GetUserByToken(string token);
     }
 }
