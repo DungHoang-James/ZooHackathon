@@ -138,5 +138,38 @@ namespace ZooHackathonAPI.Services.UserServices
 
             return await Task.Run(() => response);
         }
+
+        public async Task<List<UserResponse>> GetAllUser()
+        {
+            var users = await Get().ToListAsync();
+
+            List<UserResponse> userResponses = new();
+
+            foreach (var temp in users)
+            {
+                var userReports = _reportService.GetReportsByUserId(temp.ID);
+
+                UserResponse response = new UserResponse
+                {
+                    Email = temp.Email,
+                    FullName = temp.Fullname,
+                    IsHideInfo = temp.IsHideInfo, 
+                    ReportCount = userReports != null ? userReports.Count : 0
+                };
+
+                userResponses.Add(response);
+            }
+
+            var result = SortUserReportCount(userResponses);
+
+            return await Task.Run(() => result);
+        }
+
+        private List<UserResponse> SortUserReportCount(List<UserResponse> userResponses)
+        {
+            var result = userResponses.AsQueryable().OrderByDescending(temp => temp.ReportCount).ToList();
+
+            return result;
+        }
     }
 }
