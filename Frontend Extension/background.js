@@ -11,6 +11,3 @@ function uuidv4() {
 		(c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
 	);
 }
-
-
-// 4e73c7c7-894d-43ff-bb2e-c68e2f75b895
