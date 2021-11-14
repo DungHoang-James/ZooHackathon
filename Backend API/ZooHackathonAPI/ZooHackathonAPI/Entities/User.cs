@@ -21,5 +21,6 @@ namespace ZooHackathonAPI.Entities
 
         public int Role { get; set; }
         public DateTime CreateDate { get; set; }
+        public bool IsHideInfo { get; set; }
     }
 }
