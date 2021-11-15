@@ -14,7 +14,7 @@ let password3 = document.getElementById('password3');
 let authen = document.getElementById('authen');
 let welcome = document.getElementById('welcome');
 
-const BACKEND_URL = 'https://4b92-2402-800-6388-64d3-60b8-f5ef-49a4-a2a0.ngrok.io';
+const BACKEND_URL = 'https://eaa9-2402-800-6341-eafc-149-87c5-8d38-5479.ngrok.io';
 
 document.addEventListener('DOMContentLoaded', async function () {
 	const currentUser = await chrome.storage.sync.get('currentUser');
@@ -137,7 +137,33 @@ async function onReport(url, userID, deviceID) {
 
 		let i = 0;
 
-		const dictionary = ['bán', 'buôn bán', 'sừng', 'ngà', 'simple', 'html page'];
+		const dictionary = [
+			'bán',
+			'buôn bán',
+			'voi',
+			'hổ',
+			'gấu',
+			'tê tê',
+			'culi',
+			'rái cá',
+			'trăn',
+			'rắn',
+			'cự đà',
+			'rùa',
+			'sừng',
+			'tê giác',
+			'ngà',
+			'ngà voi',
+			'mật',
+			'vảy',
+			'xương',
+			'súng săn',
+			'bẫy',
+			'html page',
+			'new',
+		];
+
+		const labels = ['rhinoceros', 'elephant', 'tiger'];
 
 		function santinizeWord(word) {
 			return word.toLowerCase().split('-').join('').split('.').join('').split('_').join('');
@@ -145,21 +171,21 @@ async function onReport(url, userID, deviceID) {
 
 		function validateText(textContent, node) {
 			const words = textContent.split(' ');
-
 			words.forEach((word, index) => {
+				let oriWord1 = word;
+				let oriWord2 = word + ' ' + words[index + 1] || '';
 				const word1 = santinizeWord(word);
 				const word2 = word1 + ' ' + santinizeWord(words[index + 1] || '');
-
 				if (dictionary.includes(word2.trim())) {
 					node.innerHTML =
 						words.slice(0, index).join(' ') +
-						` <span style='color:Tomato;text-transform:uppercase'>${word2}</span> ` +
+						` <span style='color:Tomato;text-transform:uppercase'>${oriWord2}</span> ` +
 						words.slice(index + 2).join(' ');
 					texts.push({ text: word2 });
 				} else if (dictionary.includes(word1.trim())) {
 					node.innerHTML =
 						words.slice(0, index).join(' ') +
-						` <span style='color:Tomato;text-transform:uppercase'>${word1}</span> ` +
+						` <span style='color:Tomato;text-transform:uppercase'>${oriWord1}</span> ` +
 						words.slice(index + 1).join(' ');
 					texts.push({ text: word1 });
 				}
@@ -172,14 +198,33 @@ async function onReport(url, userID, deviceID) {
 
 		async function myLoop(node) {
 			if (leaf[i - 1]) {
-				leaf[i - 1].style.border = 'initial';
+				if (!leaf[i - 1].imageCorrect) {
+					leaf[i - 1].style.border = 'initial';
+				}
 			}
 			node.style.border = '2px solid red';
 
 			if (leaf[i].tagName === 'IMG') {
 				const imageURL = leaf[i].src;
-				// TODO: gọi api AI check image
-				// images.push({imageURL, percentCorrect})
+				const res = await fetch(`${url}/api/reports/detectImage?imagePath=${imageURL}`, {
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				});
+
+				const data = await res.json();
+
+				if (data.length) {
+					const image = data.find((image) =>
+						labels.some((el) => image.label.toLowerCase().includes(el))
+					);
+					if (image) {
+						node.style.border = '2px solid red';
+						node.imageCorrect = true;
+						images.push({ imageURL, percentCorrect: Math.round(image.probability * 100) });
+					}
+				}
 			} else {
 				const textContent = node.textContent;
 				validateText(textContent, leaf[i]);
@@ -201,28 +246,29 @@ async function onReport(url, userID, deviceID) {
 	console.log(images);
 	console.log(texts);
 
-	// const avgPercent = images.reduce((acc, cur) => acc + cur.percent, 0) / images.length;
+	const avgPercent = images.reduce((acc, cur) => acc + cur.percentCorrect, 0) / images.length;
 
-	// if (avgPercent > 75) {
-	// 	const raw = JSON.stringify({
-	// 		userID,
-	// 		deviceID,
-	// 		reportImages: images,
-	// 		reportTexts: texts,
-	// 	});
+	console.log(avgPercent);
+	if (avgPercent && avgPercent > 75) {
+		const raw = JSON.stringify({
+			userID,
+			deviceID,
+			reportImages: images,
+			reportTexts: Array.from(new Set(texts.map((el) => el.text.trim()))).map((el) => ({
+				text: el,
+			})),
+		});
 
-	// 	await fetch(`${url}/api/reports`, {
-	// 		method: 'POST',
-	// 		headers: {
-	// 			'Content-Type': 'application/json',
-	// 		},
-	// 		body: raw,
-	// 	});
+		await fetch(`${url}/api/reports`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: raw,
+		});
 
-	// 	alert('Report successful');
-	// } else {
-	// 	alert('Report fail. Accuracy percent is not more than 75%');
-	// }
+		alert('Report successful');
+	} else {
+		alert('Report fail. Accuracy percent is not more than 75%');
+	}
 }
-
-const dictionary = ['Bán', 'Buôn bán', 'Sừng', 'Ngà', 'HTML'];
