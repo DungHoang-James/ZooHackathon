@@ -95,12 +95,14 @@ btnReport.addEventListener('click', async () => {
 	const currentUser = await chrome.storage.sync.get('currentUser');
 	const deviceId = (await chrome.storage.sync.get('deviceId')).deviceId;
 
+
+	console.log(currentUser);
 	chrome.scripting.executeScript({
 		target: { tabId: tab.id },
 		function: onReport,
 		args: [
 			BACKEND_URL,
-			currentUser && currentUser.currentUser ? currentUser.currentUser.userID : null,
+			currentUser && currentUser.currentUser ? currentUser.currentUser.id : null,
 			currentUser && currentUser.currentUser ? null : deviceId,
 		],
 	});
