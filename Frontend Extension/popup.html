@@ -25,13 +25,13 @@
 		>
 			Hello "user"
 		</h6>
-		<div style="margin: auto; width: 100%; padding: 16px; display: block" id="authen">
-			<button type="button" class="btn btn-primary" style="width: 100%" id="btnSignup">
+		<div style="margin: auto; width: 100%; padding: 16px 30px; display: block" id="authen">
+			<button type="button" class="btn btn-success" style="width: 100%" id="btnSignup">
 				Create an account for reward
 			</button>
 			<button
 				type="button"
-				class="btn btn-primary"
+				class="btn btn-success"
 				style="width: 100%; margin-top: 10px"
 				id="btnLogin"
 			>
@@ -40,7 +40,7 @@
 		</div>
 
 		<form
-			style="padding-left: 16px; padding-right: 16px; padding-bottom: 16px; display: none"
+			style="padding-left: 30px; padding-right: 30px; padding-bottom: 16px; display: none"
 			id="signupForm"
 		>
 			<div class="mb-3">
@@ -55,11 +55,11 @@
 				<label for="password3" class="form-label">Password Confirm</label>
 				<input type="password" class="form-control" id="password3" />
 			</div>
-			<button type="submit" class="btn btn-primary" id="btnSignupSubmit">Sign up</button>
+			<button type="submit" class="btn btn-success" id="btnSignupSubmit">Sign up</button>
 		</form>
 
 		<form
-			style="padding-left: 16px; padding-right: 16px; padding-bottom: 16px; display: none"
+			style="padding-left: 30px; padding-right: 30px; padding-bottom: 16px; display: none"
 			id="loginForm"
 		>
 			<div class="mb-3">
@@ -70,7 +70,7 @@
 				<label for="password1" class="form-label">Password</label>
 				<input type="password" class="form-control" id="password1" />
 			</div>
-			<button type="submit" class="btn btn-primary" id="btnLoginSubmit">Login</button>
+			<button type="submit" class="btn btn-success" id="btnLoginSubmit">Login</button>
 		</form>
 
 		<div>
@@ -78,10 +78,20 @@
 				<a href="#" class="list-group-item list-group-item-action" id="btnReport"
 					>Report this website</a
 				>
-				<a href="#" class="list-group-item list-group-item-action">View leaderboard</a>
+				<a
+					href="https://leader-board-dun.vercel.app/"
+					class="list-group-item list-group-item-action"
+					target="_blank"
+					>View leaderboard</a
+				>
 				<label
 					class="list-group-item list-group-item-action"
-					style="display: flex; align-items: center; justify-content: space-between"
+					style="
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						padding-bottom: 16px;
+					"
 				>
 					<span>Auto detect mode</span>
 					<label class="switch">
